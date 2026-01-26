@@ -1,0 +1,58 @@
+﻿@model FirstResponsiveWebAppHey.Models.FirstResponsiveWebAppModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/popper/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <title>Index</title>
+</head>
+<body>
+<div class="container">
+    <main>
+        <h1>Age Calculator</h1>
+
+        <form asp-action="Index" method="post" class="form-horizontal">
+
+            <div class="row">
+                <label asp-for="Name" class="control-label col-sm-3">Name</label>
+                <input asp-for="Name" class="form-control col-sm-3" />
+                <span asp-validation-for="Name" class="text-danger col"></span>
+            </div>
+
+            <div class="row">
+                <label asp-for="YearOfBirth" class="control-label col-sm-3">Year of Birth</label>
+                <input asp-for="YearOfBirth" class="form-control col-sm-3" />
+                <span asp-validation-for="YearOfBirth" class="text-danger col"></span>
+            </div>
+
+            <div class="row">
+                <div class="col offset-sm-3 pl-0">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+                </div>
+            </div>
+            
+            @if (ViewData.ModelState.IsValid && Model.YearOfBirth > 0)
+            {
+                <div class="row">
+                    <label class="control-label col-sm-3">Result:</label>
+                    <div class="col-sm-6">
+                        <strong>@Model.Name</strong>,
+                        you will be <strong>@Model.AgeThisYear()</strong>
+                        years old on December 31st of this year.
+                    </div>
+                </div>
+            }
+        </form>
+    </main>
+</div>
+</body>
+</html>
