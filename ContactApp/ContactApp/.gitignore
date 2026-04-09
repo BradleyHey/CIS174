@@ -1,0 +1,19 @@
+# Rider / IntelliJ
+.idea/
+
+# Build output
+bin/
+obj/
+
+# SQLite databases
+*.db
+
+# Client-side libraries (do NOT commit)
+wwwroot/lib/
+
+# Solution files outside project
+*.sln
+global.json
+
+# macOS junk
+.DS_Store
