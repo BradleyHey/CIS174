@@ -78,5 +78,5 @@ public class FirstResponsiveWebAppModelTests
 
         // Assert
         Assert.Equal(expected, age);
-    }\
+    }
 }
