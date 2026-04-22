@@ -20,8 +20,20 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "custom-rule",
+    pattern: "assignments/custom-rule",
+    defaults: new { controller = "Assignments", action = "CustomRule" });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
 
 app.Run();

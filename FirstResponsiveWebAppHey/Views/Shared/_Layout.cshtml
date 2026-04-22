@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">My Web App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" 
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarCollapse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="DefaultRoute">Default Route</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="CustomRule">Custom Rule</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="AttributeRoute">Attribute Route</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
