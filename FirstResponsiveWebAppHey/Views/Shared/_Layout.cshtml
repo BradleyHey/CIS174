@@ -15,11 +15,24 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarCollapse">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="DefaultRoute">Default Route</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="CustomRule">Custom Rule</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-controller="Assignments" asp-action="AttributeRoute">Attribute Route</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="assignmentsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Assignments
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="assignmentsDropdown">
+                            <a class="dropdown-item" asp-controller="Assignments" asp-action="DefaultRoute">Default Route</a>
+                            <a class="dropdown-item" asp-controller="Assignments" asp-action="CustomRule">Custom Rule</a>
+                            <a class="dropdown-item" asp-controller="Assignments" asp-action="AttributeRoute">Attribute Route</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-controller="Assignment6_1" asp-action="Index" asp-route-accessLevel="1">Assignment 6.1</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -28,6 +41,7 @@
         @RenderBody()
     </div>
     <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/popper/popper.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

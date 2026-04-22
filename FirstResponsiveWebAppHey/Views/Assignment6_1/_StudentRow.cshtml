@@ -1,0 +1,13 @@
+@model FirstResponsiveWebAppHey.Models.StudentViewModel
+
+@foreach (var student in Model.Students)
+{
+    <tr>
+        <td>@student.FirstName</td>
+        <td>@student.LastName</td>
+        @if (Model.AccessLevel >= 8)
+        {
+            <td>@student.Grade</td>
+        }
+    </tr>
+}
