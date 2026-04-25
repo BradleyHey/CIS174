@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.list-inline-item img {
+    width: 150px;
+    margin: 10px;
+}

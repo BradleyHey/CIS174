@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using FirstResponsiveWebAppHey.Models.Olympics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
+builder.Services.AddDbContext<OlympicsContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("OlympicsContext")));
 
 var app = builder.Build();
 
@@ -18,12 +27,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
     pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "olympics",
+    pattern: "Olympics/{action=Index}/game-{activeGame}/cat-{activeCat}",
+    defaults: new { controller = "Olympics", action = "Index", activeGame = "all", activeCat = "all" });
 
 app.MapControllerRoute(
     name: "custom-rule",
