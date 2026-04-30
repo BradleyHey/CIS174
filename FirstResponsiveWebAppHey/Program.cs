@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using FirstResponsiveWebAppHey.Models.Olympics;
+using FirstResponsiveWebAppHey.Models.Ticketing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddSession();
 
 builder.Services.AddDbContext<OlympicsContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("OlympicsContext")));
+
+builder.Services.AddDbContext<TicketingContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("TicketingContext")));
 
 var app = builder.Build();
 
@@ -39,7 +43,7 @@ app.MapAreaControllerRoute(
 app.MapControllerRoute(
     name: "olympics",
     pattern: "Olympics/{action=Index}/game-{activeGame}/cat-{activeCat}",
-    defaults: new { controller = "Olympics", action = "Index", activeGame = "all", activeCat = "all" });
+    defaults: new { controller = "Home", action = "Index", activeGame = "all", activeCat = "all" });
 
 app.MapControllerRoute(
     name: "custom-rule",

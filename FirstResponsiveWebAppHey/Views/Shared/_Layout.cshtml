@@ -20,20 +20,20 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarCollapse">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="assignmentsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Assignments
                         </a>
                         <div class="dropdown-menu" aria-labelledby="assignmentsDropdown">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">Olympic Games</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="AgeCalculator">Age Calculator</a>
+                            <a class="dropdown-item" asp-controller="Ticketing" asp-action="Index">Ticketing System</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-controller="Assignments" asp-action="DefaultRoute">Default Route</a>
                             <a class="dropdown-item" asp-controller="Assignments" asp-action="CustomRule">Custom Rule</a>
                             <a class="dropdown-item" asp-controller="Assignments" asp-action="AttributeRoute">Attribute Route</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-controller="Assignment6_1" asp-action="Index" asp-route-accessLevel="1">Assignment 6.1</a>
-                            <a class="dropdown-item" asp-controller="Olympics" asp-action="Index">Olympic Games</a>
                         </div>
                     </li>
                     <li class="nav-item">

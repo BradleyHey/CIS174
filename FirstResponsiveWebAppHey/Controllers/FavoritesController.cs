@@ -40,7 +40,7 @@ namespace FirstResponsiveWebAppHey.Controllers
 
             TempData["message"] = $"{country.Name} added to your favorites";
 
-            return RedirectToAction("Index", "Olympics", 
+            return RedirectToAction("Index", "Home", 
                 new
                 {
                     ActiveGame = session.GetActiveGame(),
@@ -56,7 +56,7 @@ namespace FirstResponsiveWebAppHey.Controllers
 
             TempData["message"] = "Favorite countries cleared";
 
-            return RedirectToAction("Index", "Olympics",
+            return RedirectToAction("Index", "Home",
                 new {
                     ActiveGame = session.GetActiveGame(),
                     ActiveCat = session.GetActiveCat()
