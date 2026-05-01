@@ -1,38 +1,49 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using FirstResponsiveWebAppHey.Models.Ticketing;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using FirstResponsiveWebAppHey.Models.DataLayer;
 
 namespace FirstResponsiveWebAppHey.Controllers
 {
     public class TicketingController : Controller
     {
-        private TicketingContext context;
-        public TicketingController(TicketingContext ctx) => context = ctx;
+        private IRepository<Ticket> tickets { get; set; }
+        private IRepository<Status> statuses { get; set; }
+
+        public TicketingController(IRepository<Ticket> ticketRepo, IRepository<Status> statusRepo)
+        {
+            tickets = ticketRepo;
+            statuses = statusRepo;
+        }
 
         public ViewResult Index(string id)
         {
             var filters = new TicketFilters(id);
             ViewBag.Filters = filters;
-            ViewBag.Statuses = context.Statuses.ToList();
+            ViewBag.Statuses = statuses.List(new QueryOptions<Status> { 
+                OrderBy = s => s.Name 
+            });
 
-            IQueryable<Ticket> query = context.Tickets
-                .Include(t => t.Status);
+            var options = new QueryOptions<Ticket> {
+                Includes = "Status",
+                OrderBy = t => t.SprintNumber
+            };
 
             if (filters.HasStatus)
             {
-                query = query.Where(t => t.StatusId == filters.StatusId);
+                options.Where = t => t.StatusId == filters.StatusId;
             }
 
-            var tickets = query.OrderBy(t => t.SprintNumber).ToList();
+            var ticketList = tickets.List(options);
 
-            return View(tickets);
+            return View(ticketList);
         }
 
         [HttpGet]
         public ViewResult Add()
         {
-            ViewBag.Statuses = context.Statuses.ToList();
+            ViewBag.Statuses = statuses.List(new QueryOptions<Status> { 
+                OrderBy = s => s.Name 
+            });
             var ticket = new Ticket { StatusId = "todo" };
             return View(ticket);
         }
@@ -40,26 +51,17 @@ namespace FirstResponsiveWebAppHey.Controllers
         [HttpPost]
         public IActionResult Add(Ticket ticket)
         {
-            string key = nameof(ticket.PointValue);
-            var value = ModelState.GetValidationState(key);
-            if (value == ModelValidationState.Valid)
-            {
-                if (ticket.PointValue < 0)
-                {
-                    ModelState.AddModelError(key, "Point value must be greater than or equal to zero");
-                }
-            }
-            
-            
             if (ModelState.IsValid)
             {
-                context.Tickets.Add(ticket);
-                context.SaveChanges();
+                tickets.Insert(ticket);
+                tickets.Save();
                 return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.Statuses = context.Statuses.ToList();
+                ViewBag.Statuses = statuses.List(new QueryOptions<Status> { 
+                    OrderBy = s => s.Name 
+                });
                 return View(ticket);
             }
         }
@@ -74,11 +76,12 @@ namespace FirstResponsiveWebAppHey.Controllers
         [HttpPost]
         public IActionResult MarkDone([FromRoute] string id, Ticket selected)
         {
-            selected = context.Tickets.Find(selected.Id)!;
+            selected = tickets.Get(selected.Id)!;
             if (selected != null)
             {
                 selected.StatusId = "done";
-                context.SaveChanges();
+                tickets.Update(selected);
+                tickets.Save();
             }
 
             return RedirectToAction("Index", new { ID = id });
@@ -87,14 +90,16 @@ namespace FirstResponsiveWebAppHey.Controllers
         [HttpPost]
         public IActionResult DeleteDone(string id)
         {
-            var toDelete = context.Tickets
-                .Where(t => t.StatusId == "done").ToList();
+            var options = new QueryOptions<Ticket> {
+                Where = t => t.StatusId == "done"
+            };
+            var toDelete = tickets.List(options);
 
             foreach (var ticket in toDelete)
             {
-                context.Tickets.Remove(ticket);
+                tickets.Delete(ticket);
             }
-            context.SaveChanges();
+            tickets.Save();
 
             return RedirectToAction("Index", new { ID = id });
         }

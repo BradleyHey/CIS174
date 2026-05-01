@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using FirstResponsiveWebAppHey.Models.Olympics;
 using FirstResponsiveWebAppHey.Models.Ticketing;
+using FirstResponsiveWebAppHey.Models.DataLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<OlympicsContext>(options =>
 
 builder.Services.AddDbContext<TicketingContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("TicketingContext")));
+
+builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
 var app = builder.Build();
 
