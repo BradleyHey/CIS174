@@ -27,6 +27,7 @@
                         <th>Sprint</th>
                         <th>Points</th>
                         <th>Status</th>
+                        <th>Date Opened</th>
                         <th class="w-25"></th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>@ticket.SprintNumber</td>
                         <td>@ticket.PointValue</td>
                         <td>@ticket.Status.Name</td>
+                        <td>@ticket.DateOpened.ToShortDateString()</td>
                         <td>
                         @if (ticket.StatusId != "done")
                         {

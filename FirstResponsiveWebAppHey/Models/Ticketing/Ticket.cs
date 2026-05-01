@@ -25,5 +25,7 @@ namespace FirstResponsiveWebAppHey.Models.Ticketing
 
         [ValidateNever]
         public Status Status { get; set; } = null!;
+
+        public DateTime DateOpened { get; set; } = DateTime.Now;
     }
 }
