@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FirstResponsiveWebAppHey.Models.Ticketing;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace FirstResponsiveWebAppHey.Controllers
 {
@@ -39,6 +40,17 @@ namespace FirstResponsiveWebAppHey.Controllers
         [HttpPost]
         public IActionResult Add(Ticket ticket)
         {
+            string key = nameof(ticket.PointValue);
+            var value = ModelState.GetValidationState(key);
+            if (value == ModelValidationState.Valid)
+            {
+                if (ticket.PointValue < 0)
+                {
+                    ModelState.AddModelError(key, "Point value must be greater than or equal to zero");
+                }
+            }
+            
+            
             if (ModelState.IsValid)
             {
                 context.Tickets.Add(ticket);

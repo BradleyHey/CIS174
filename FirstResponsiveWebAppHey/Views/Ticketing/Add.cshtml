@@ -4,6 +4,12 @@
     ViewData["Title"] = "Add Ticket";
 }
 
+@section scripts {
+    <script src="~/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/custom-validation.js"></script>
+}
+
 <h2>Add Ticket</h2>
 
 <form asp-action="Add" method="post">

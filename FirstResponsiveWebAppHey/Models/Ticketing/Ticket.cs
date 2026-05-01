@@ -14,6 +14,7 @@ namespace FirstResponsiveWebAppHey.Models.Ticketing
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please enter a sprint number.")]
+        [SprintNumber]
         public int? SprintNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter a point value.")]
