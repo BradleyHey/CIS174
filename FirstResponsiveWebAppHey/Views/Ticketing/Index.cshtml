@@ -2,18 +2,9 @@
 
 <div class="row">
     <div class="col-md-3">
-        <form asp-action="Filter" method="post">
-            <div class="mb-3">
-                <label class="form-label">Status:</label>
-                <select name="filter" class="form-select"
-                        asp-items="@(new SelectList(ViewBag.Statuses,
-                    "StatusId", "Name", ViewBag.Filters.StatusId))">
-                    <option value="all">All</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Filter</button>
-            <a asp-action="Index" asp-route-id="" class="btn btn-secondary">Clear</a>
-        </form>
+        <h3 class="mt-3">Status</h3>
+        <vc:status-filter active-status="@ViewBag.Filters.StatusId"></vc:status-filter>
+        <a asp-action="Index" asp-route-id="" class="btn btn-secondary mt-3">Clear</a>
     </div>
     <div class="col-md-9">
         <form asp-action="MarkDone" method="post" 
@@ -44,7 +35,7 @@
                         <td>
                         @if (ticket.StatusId != "done")
                         {
-                            <button type="submit" class="btn btn-primary btn-sm" 
+                            <button type="submit" class="btn-sm" 
                                     name="@nameof(Ticket.Id)" value="@ticket.Id">
                                     Mark Done
                             </button>
@@ -59,7 +50,7 @@
             asp-route-id="@ViewBag.Filters.FilterString">
 
             <a asp-action="Add" class="btn btn-primary">Add new ticket</a>
-            <button type="submit" class="btn btn-danger">Delete done tickets</button>
+            <button type="submit" class="btn-danger">Delete done tickets</button>
         </form>
     </div>
 </div>

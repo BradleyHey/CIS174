@@ -1,0 +1,14 @@
+@model IEnumerable<Status>
+
+<div class="list-group">
+    <a asp-action="Index" asp-route-id="all"
+       class="list-group-item @(ViewBag.ActiveStatus == "all" ? "active" : "")">All</a>
+
+    @foreach (Status s in Model)
+    {
+        <a asp-action="Index" asp-route-id="@s.StatusId"
+           class="list-group-item @(ViewBag.ActiveStatus == s.StatusId ? "active" : "")">
+            @s.Name
+        </a>
+    }
+</div>
