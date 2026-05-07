@@ -1,0 +1,57 @@
+@model UserViewModel
+@{
+    ViewBag.Title = "Manage Users";
+}
+
+<h1 class="mb-2">Manage Users</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (!Model.Users.Any())
+    {
+        <tr><td colspan="3">There are no user accounts.</td></tr>
+    }
+    else
+    {
+        @foreach (User user in Model.Users)
+        {
+        <tr>
+            <td>@user.UserName</td>
+            <td>
+                @foreach (string roleName in user.RoleNames)
+                {
+                    <span class="badge bg-info text-dark">@roleName</span>
+                }
+            </td>
+            <td>
+                <div class="btn-group" role="group">
+                    <form method="post" asp-action="Delete" asp-route-id="@user.Id">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete User</button>
+                    </form>
+                    
+                    @if (user.RoleNames.Contains("Admin"))
+                    {
+                        <form method="post" asp-action="RemoveFromAdmin" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-sm btn-warning ms-1">Remove Admin</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-action="AddToAdmin" asp-route-id="@user.Id">
+                            <button type="submit" class="btn btn-sm btn-success ms-1">Make Admin</button>
+                        </form>
+                    }
+                </div>
+            </td>
+        </tr>
+        }
+    }
+    </tbody>
+</table>

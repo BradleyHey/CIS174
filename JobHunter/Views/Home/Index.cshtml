@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to JobHunter</h1>
+    <p class="lead">The best place to organize and track your job search journey.</p>
+    <hr class="my-4">
+    
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h3>Hello, @User.Identity.Name!</h3>
+                <p>Ready to update your applications?</p>
+                <a asp-controller="JobApplications" asp-action="Index" class="btn btn-primary btn-lg">View My Job Applications</a>
+                <a asp-controller="JobApplications" asp-action="Create" class="btn btn-outline-success btn-lg">Add New Application</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div>
+                    <div>
+                        <h5>Get Started</h5>
+                        <p>Create an account to start tracking your job applications today.</p>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register Now</a>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
