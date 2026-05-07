@@ -13,7 +13,7 @@ namespace JobHunter.Tests
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             var context = new ApplicationDbContext(options);
-            context.Database.EnsureCreated(); // This will trigger OnModelCreating and seed data
+            context.Database.EnsureCreated();
             return context;
         }
 
@@ -117,7 +117,7 @@ namespace JobHunter.Tests
         public async Task GetStatusesAsync_ReturnsSeededStatuses()
         {
             // Arrange
-            var context = GetDbContext(); // GetDbContext calls EnsureCreated which seeds statuses
+            var context = GetDbContext();
             var service = new JobService(context);
 
             // Act
