@@ -1,0 +1,62 @@
+@model OlympicsViewModel
+@{
+    ViewData["Title"] = "Olympic Games";
+}
+
+<h1 class="text-center p-3">Olympic Games</h1>
+
+<div class="row">
+    <div class="col-sm-3">
+        <h3 class="mt-3">Game</h3>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-activeGame="all"
+               asp-route-activeCat="@Model.ActiveCat"
+               class="list-group-item @Model.CheckActiveGame("all")">
+                All
+            </a>
+            @foreach (Game game in Model.Games)
+            {
+                <a asp-action="Index"
+                   asp-route-activeGame="@game.GameID"
+                   asp-route-activeCat="@Model.ActiveCat"
+                   class="list-group-item @Model.CheckActiveGame(game.GameID)">
+                    @game.Name
+                </a>
+            }
+        </div>
+        
+        <h3 class="mt-3">Category</h3>
+        <div class="list-group">
+            <a asp-action="Index"
+               asp-route-activeGame="@Model.ActiveGame"
+               asp-route-activeCat="all"
+               class="list-group-item @Model.CheckActiveCat("all")">
+                All
+            </a>
+            @foreach (Category cat in Model.Categories)
+            {
+                <a asp-action="Index"
+                   asp-route-activeGame="@Model.ActiveGame"
+                   asp-route-activeCat="@cat.CategoryID"
+                   class="list-group-item @Model.CheckActiveCat(cat.CategoryID)">
+                    @cat.Name
+                </a>
+            }
+        </div>
+    </div>
+    
+    <div class="col-sm-9">
+        <ul class="list-inline">
+            @foreach (Country country in Model.Countries)
+            {
+                <li class="list-inline-item">
+                    <a asp-action="Details" asp-route-id="@country.CountryID">
+                        <img src="~/images/@country.LogoImage" alt="@country.Name"
+                             title="@country.Name | @country.Game.Name @country.Category.Name" />
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

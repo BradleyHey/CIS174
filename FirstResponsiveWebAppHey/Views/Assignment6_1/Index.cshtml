@@ -1,0 +1,38 @@
+@model FirstResponsiveWebAppHey.Models.StudentViewModel
+
+@{
+    ViewBag.Title = "Assignment 6.1";
+}
+
+<h1>Assignment 6.1</h1>
+<h3>Access Level: @Model.AccessLevel</h3>
+
+@if (Model.AccessLevel < 2)
+{
+    <div>
+        You do not have high enough access level to view this data.
+    </div>
+}
+else
+{
+    @if (Model.AccessLevel >= 8)
+    {
+        <h4>Hello Admin</h4>
+    }
+
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                @if (Model.AccessLevel >= 8)
+                {
+                    <th>Grade</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <partial name="_StudentRow" model="Model" />
+        </tbody>
+    </table>
+}
